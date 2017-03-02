@@ -3,14 +3,16 @@ angular.module("app", [
 	'ngResource', 
 	'satellizer', 
 	'authService', 
-	'libroService']
-	)
+	'libroService',
+	'toastr'
+	])
 
 .config(function($routeProvider, $authProvider) {
 	$authProvider.loginUrl = 'http://localhost/laravel/public/authLogin';
 	$routeProvider.when('/home', {
-		templateUrl: 'templates/list.html',
+		templateUrl: 'templates/inicio.html',
 		controller: 'HomeCtrl',
+		controllerAs: 'inicio',
 	})
 	.when('/edit/:id', {
 		templateUrl: 'templates/edit.html',
@@ -25,17 +27,31 @@ angular.module("app", [
 		controller: 'LoginCtrl',
 		controllerAs: 'login',
 	})
+	.when('/listar', {
+		templateUrl: 'templates/list.html',
+		controller: 'ListCtrl',
+		controllerAs: 'listar',
+	})
 	.otherwise({redirectTo: '/home'});
 })
 
+.run(function($rootScope, $location, authUser, toastr){
+	var rutasPrivadas = ['/', '/listar'];
+
+	$rootScope.$on('$routeChangeStart', function(){
+		if(($.inArray($location.path(), rutasPrivadas) !== -1) 
+			&& !authUser.isLoggedIn()){
+			toastr.error('Debe iniciar sesión para poder continuar', 'Mensaje');
+			$location.path('/login');
+
+		}
+	});
+
+})
+
+
 
 // Controladores Antiguos
-.controller('HomeCtrl', ['$scope', 'Libros', '$route', function ($scope, Libros, $route){
-	Libros.get(function(data){
-		$scope.libros = data.libros;
-	})
-}])
-
 .controller('EditCtrl', ['$scope', 'Libros', '$routeParams', function ($scope, Libros, $routeParams){
 	$scope.settings = {
 		pageTitle: "Editar libro",

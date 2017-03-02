@@ -1,7 +1,13 @@
-var app = angular.module("app", ["ngRoute", "ngResource"])
+angular.module("app", [
+	'ngRoute', 
+	'ngResource', 
+	'satellizer', 
+	'authService', 
+	'libroService']
+	)
 
-
-.config(['$routeProvider', function($routeProvider) {
+.config(function($routeProvider, $authProvider) {
+	$authProvider.loginUrl = 'http://localhost/laravel/public/authLogin';
 	$routeProvider.when('/home', {
 		templateUrl: 'templates/list.html',
 		controller: 'HomeCtrl',
@@ -14,9 +20,16 @@ var app = angular.module("app", ["ngRoute", "ngResource"])
 		templateUrl: 'templates/create.html',
 		controller: 'CreateCtrl',
 	})
+	.when('/login', {
+		templateUrl: 'templates/login.html',
+		controller: 'LoginCtrl',
+		controllerAs: 'login',
+	})
 	.otherwise({redirectTo: '/home'});
-}])
+})
 
+
+// Controladores Antiguos
 .controller('HomeCtrl', ['$scope', 'Libros', '$route', function ($scope, Libros, $route){
 	Libros.get(function(data){
 		$scope.libros = data.libros;
@@ -67,12 +80,7 @@ var app = angular.module("app", ["ngRoute", "ngResource"])
 	}
 }])
 
-.factory('Libros', function ($resource)
-{
-	return $resource("http://localhost/laravel/public/libros/:id", {id:"@_id"}, 
-		{update: {method: "PUT", params: {id: "@id"}}
-	})
 
-})
+
 
 

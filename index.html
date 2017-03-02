@@ -5,15 +5,24 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="./bower_components/bootstrap/dist/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="./css/styles.css">
-	<script type="text/javascript" src="./bower_components/angular/angular.js"></script>
-	<script type="text/javascript" src="./bower_components/angular-route/angular-route.js"></script>
-	<script type="text/javascript" src="./bower_components/angular-resource/angular-resource.js"></script>
-	<script type="text/javascript" src="./scripts/app.js"></script>
+
 </head>
 <body>
 	<div ng-include="'templates/nav.html'"></div>
 	<div class="container">
 		<div ng-view></div>
 	</div>
+
+
+
+	<script type="text/javascript" src="./bower_components/angular/angular.js"></script>
+	<script type="text/javascript" src="./bower_components/angular-route/angular-route.js"></script>
+	<script type="text/javascript" src="./bower_components/angular-resource/angular-resource.js"></script>
+	<script type="text/javascript" src="./bower_components/satellizer/dist/satellizer.js"></script>
+	<script type="text/javascript" src="./scripts/app.js"></script>
+	<script type="text/javascript" src="./scripts/services/libroService.js"></script>
+	<script type="text/javascript" src="./scripts/services/authService.js"></script>
+	<script type="text/javascript" src="./scripts/controllers/loginController.js"></script>
+	
 </body>
 </html>

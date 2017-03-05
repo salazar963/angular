@@ -1,1 +1,9 @@
-<form role="form" name="addLibro" ng-include="'forms/libro.html'""></form>
+<div ng-include="crear.menuTemplate.url"></div>
+
+<h2>Crear encuesta </h2>
+
+<form name="upload" ng-submit="uploadFile()">
+	Nombre Encuesta: <input type="text" ng-model="name" /><br>
+	<input type="file" name="file" uploader-model="file" /> <br>
+	<input type="submit" value="Crear encuesta"> 
+</form>

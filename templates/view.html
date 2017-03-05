@@ -1,0 +1,18 @@
+<div ng-include="ver.menuTemplate.url"></div>
+
+<h2>Encuesta: {{ namePoll }} </h2>
+
+<li class="list-group-item" ng-repeat = "info in encuesta">
+	Grupo: {{ info.name }}
+	<ul>
+		<div  ng-repeat = "section in info.sections">
+			<li>Sección: {{ section.name }}</li>
+
+			<ul>
+				<div  ng-repeat = "question in section.questions">
+					<li>Pregunta: {{ question.name }}</li>
+				</div>
+			</ul>
+		</div>
+	</ul>
+</li>

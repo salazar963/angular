@@ -1,3 +1,25 @@
+
 <div ng-include="inicio.menuTemplate.url"></div>
 
-Esta es la prueba de inicio
+<h2>Encuestas</h2>
+<div class="row">
+	<div class="panel-body">
+
+		<table WIDTH=100% border="2px">
+			<tr>
+				<td><strong>Id</strong></td>
+				<td><strong>Nombre</strong></td>
+				<td><strong>Acciones</strong></td>
+			</tr>
+			<tr ng-repeat = "encuesta in encuestas">
+				<td>{{ encuesta.id }}</td>
+				<td>{{ encuesta.name }}</td>
+				<td>
+					<a href="#!/view/{{ encuesta.id }}"> <span class="glyphicon glyphicon-eye-open"></span></a>
+				</td>
+			</tr>
+		</table>
+
+	</div>
+</div>
+

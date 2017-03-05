@@ -3,24 +3,27 @@ angular.module("app", [
 	'ngResource', 
 	'satellizer', 
 	'authService', 
-	'libroService',
-	'toastr'
+	'encuestaService',
+	'toastr',
+	'encuestaService'
 	])
 
 .config(function($routeProvider, $authProvider) {
 	$authProvider.loginUrl = 'http://localhost/laravel/public/authLogin';
 	$routeProvider.when('/home', {
 		templateUrl: 'templates/inicio.html',
-		controller: 'HomeCtrl',
+		controller: 'InicioCtrl',
 		controllerAs: 'inicio',
 	})
-	.when('/edit/:id', {
-		templateUrl: 'templates/edit.html',
-		controller: 'EditCtrl',
+	.when('/view/:id', {
+		templateUrl: 'templates/view.html',
+		controller: 'ViewCtrl',
+		controllerAs: 'ver',
 	})
 	.when('/create', {
 		templateUrl: 'templates/create.html',
-		controller: 'CreateCtrl',
+		controller: 'CrearCtrl',
+		controllerAs: 'crear',
 	})
 	.when('/login', {
 		templateUrl: 'templates/login.html',
@@ -34,7 +37,7 @@ angular.module("app", [
 	})
 	.otherwise({redirectTo: '/home'});
 })
-
+/*
 .run(function($rootScope, $location, authUser, toastr){
 	var rutasPrivadas = ['/', '/listar'];
 
@@ -48,7 +51,7 @@ angular.module("app", [
 	});
 
 })
-
+*/
 
 
 // Controladores Antiguos
@@ -95,7 +98,21 @@ angular.module("app", [
 		});
 	}
 }])
-
+.directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+ 
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+}])
 
 
 
